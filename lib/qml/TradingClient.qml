@@ -34,7 +34,7 @@ ApplicationWindow {
 
 		TradingView {
 			id: tradingView
-			width: page.width / 2
+            width: page.width
 			height: page.height
 		}
 	}

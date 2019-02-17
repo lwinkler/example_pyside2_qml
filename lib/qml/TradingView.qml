@@ -9,7 +9,7 @@ import QtQuick.Controls 2.12
 // import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 
-// import "js/jsUtils.js" as JsUtils
+import "js/jsUtils.js" as JsUtils
 
 Item {
 	width: 640  // to override
@@ -20,17 +20,24 @@ Item {
 
 	// layout for buttons and listView
 
+    ListModel {
+        id: testModel
+        ListElement {
+            label: "AAAA"
+            display: "BBB"
+        }
+    }
+
 	ListView {
 		id: localPatientsView
         model: pyStockListModel
 		spacing: 2
-		Layout.fillWidth: true
-		Layout.fillHeight: true
-		interactive: true
+        interactive: true
 		flickableDirection: Flickable.VerticalFlick
-		// boundsBehavior: Flickable.StopAtBounds
 
-		delegate: Column {
+        delegate:
+            Item {}
+            /* Column {
 			spacing: 2
 			width: parent.width
 
@@ -38,11 +45,11 @@ Item {
 				property bool showJson : false
 
 				id: stockElement
-				height: uploadRow.height // width set by element itself
+                height: stockRow.height // width set by element itself
 
 				Row {
 					// List of all local patients
-					id: uploadRow
+                    id: stockRow
 					width: parent.width
 					spacing: 2
 
@@ -63,9 +70,9 @@ Item {
 									: display
 						verticalAlignment: Text.AlignHCenter
 					}
-				}
-			}
-		}
+                }
+            }
+        }*/
 	}
 }
 
