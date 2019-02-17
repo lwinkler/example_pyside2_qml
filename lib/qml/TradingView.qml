@@ -24,7 +24,9 @@ Rectangle {
 		interactive: true
 		flickableDirection: Flickable.VerticalFlick
 
-        delegate: StockElement {}
+        delegate: StockElement {
+            model: object
+        }
     }
 }
 

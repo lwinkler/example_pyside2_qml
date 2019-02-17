@@ -11,9 +11,10 @@ import "js/jsUtils.js" as JsUtils
 
 RectangleListElementStyled {
     property bool showJson : false
+    property var model
 
     id: stockElement
-    height: stockRow.height // width set by element itself
+    height: 200 // stockRow.height // width set by element itself
 
     Column {
         Row {
@@ -35,34 +36,38 @@ RectangleListElementStyled {
                 y: (parent.height - height) / 2
                 text: stockElement.showJson ?
                             JsUtils.limitString(json, 500)
-                            : display
+                            : display + " transactions: " + object.transactions.length
                 verticalAlignment: Text.AlignHCenter
             }
         }
-    }
-    Row {
-        width: parent.width
+        Row {
+            width: stockElement.width
+            y: stockRow.height
 
-        ListModel {
-            id: object1
-            ListElement {
-                display: "AAA"
+            ListModel {
+                id: object1
+                ListElement {
+                    display: "AAA"
+                }
+                ListElement {
+                    display: "AAA"
+                }
             }
-            ListElement {
-                display: "AAA"
-            }
-        }
 
-        Column {
-            ListView {
-                model: object1
-                width: parent.width
-                spacing: 2
-                interactive: true
-                flickableDirection: Flickable.VerticalFlick
+            Column {
+                ListView {
+                    model: transactions
+                    width: parent.width
+                    spacing: 2
+                    interactive: true
+                    flickableDirection: Flickable.VerticalFlick
 
-                delegate: TextArea {
-                    text: display
+                    delegate: RectangleListElementStyled {
+                        height: 50
+                        width: parent.width
+                        color: "red"
+                        //text: display
+                    }
                 }
             }
         }

@@ -14,6 +14,29 @@ from PySide2.QtCore import QObject, Signal, Slot, Property
 
 from .JsonListModel import JsonListModel
 
+class StockModel(QObject):
+
+	def __init__(self, label, unitPrice):
+		QObject.__init__(self)
+		self.label = label
+		self.unitPrice = unitPrice
+		self._transactions = JsonListModel('label')
+		self._transactions.append({"label": "trans1"})
+		self._transactions.append({"label": "trans2"})
+		self._transactions.append({"label": "trans3"})
+		self._transactions.append({"label": "trans4"})
+		self._transactions.append({"label": "trans5"})
+		self.transactionsChanged.emit()
+	
+	@Signal
+	def transactionsChanged(self):
+		pass
+	
+	def get_transactions(self, result=object):
+		return self._transactions
+	transactions = Property(object, get_transactions, notify = transactionsChanged)
+
+
 class TradingClient(QObject):
 
 	def __init__(self, stockListModel):
@@ -31,6 +54,11 @@ class TradingClient(QObject):
 	def refreshStocks(self):
 		""" Append all stocks """
 		self.stockListModel.clear()
+
+		self.stockListModel.append(StockModel("GOOGL", 1000.3))
+		self.stockListModel.append(StockModel("AMZN", 1000.3))
+
+		return
 		self.stockListModel.append({"symbol": "GOOGL", "amount": 2, "unitPrice": 1200.01, "transactions": [
 			 {"amount": 2}
 		]})
