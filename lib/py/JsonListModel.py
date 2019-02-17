@@ -7,7 +7,7 @@
 """
 
 import json
-from PySide2.QtCore import QAbstractListModel, Qt
+from PySide2.QtCore import QAbstractListModel, Qt, Property
 
 class JsonListModel(QAbstractListModel):
 	""" A simple model for a list of object for QML. Each item is a JSON object """
@@ -83,4 +83,8 @@ class JsonListModel(QAbstractListModel):
 		self._objects.append(obj)
 		# Note: untested
 		self.rowsInserted.emit(self, len(self._objects) - 1, len(self._objects) - 1)
+	
+	def get_length(self):
+		return len(self._objects)
 
+	length = Property(int, get_length)
