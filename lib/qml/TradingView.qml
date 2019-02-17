@@ -11,33 +11,21 @@ import QtQuick.Layouts 1.1
 
 import "js/jsUtils.js" as JsUtils
 
-Item {
+Rectangle {
 	width: 640  // to override
 	height: 480 // to override
-
-	property int projectIndex
-
-
-	// layout for buttons and listView
-
-    ListModel {
-        id: testModel
-        ListElement {
-            label: "AAAA"
-            display: "BBB"
-        }
-    }
+	color: "white"
 
 	ListView {
 		id: localPatientsView
-        model: pyStockListModel
+		model: pyStockListModel
+		anchors.fill: parent
 		spacing: 2
-        interactive: true
+		interactive: true
 		flickableDirection: Flickable.VerticalFlick
 
-        delegate:
-            Item {}
-            /* Column {
+		delegate:
+			Column {
 			spacing: 2
 			width: parent.width
 
@@ -45,11 +33,11 @@ Item {
 				property bool showJson : false
 
 				id: stockElement
-                height: stockRow.height // width set by element itself
+				height: stockRow.height // width set by element itself
 
 				Row {
 					// List of all local patients
-                    id: stockRow
+					id: stockRow
 					width: parent.width
 					spacing: 2
 
@@ -70,9 +58,9 @@ Item {
 									: display
 						verticalAlignment: Text.AlignHCenter
 					}
-                }
-            }
-        }*/
+				}
+			}
+		}
 	}
 }
 

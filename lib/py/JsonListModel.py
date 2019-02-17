@@ -1,9 +1,10 @@
 #! env python
 
-""" Simple model for a list of objects """
-__author__      = "Laurent Winkler"
-__copyright__   = "Copyright 2019"
-__license__     = "boost"
+""" Simple model for a list of objects
+@author: Laurent Winkler
+@date: Feb 2019
+@license: Boost
+"""
 
 import json
 from PySide2.QtCore import QAbstractListModel, Qt

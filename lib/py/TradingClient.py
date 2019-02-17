@@ -1,9 +1,10 @@
 #! env python
 
-""" Main Python class for the trading application """
-__author__      = "Laurent Winkler"
-__copyright__   = "Copyright 2019"
-__license__     = "boost"
+""" Main Python class for the trading application
+@author: Laurent Winkler
+@date: Feb 2019
+@license: Boost
+"""
 
 import datetime
 import json
@@ -27,10 +28,11 @@ class TradingClient(QObject):
 		return "NONE"
 
 	@Slot()
-	def updateProjectList(self):
-		""" Fetch project list and add it to model """
-		# TODO read from JSON
-		pass
+	def refreshStocks(self):
+		""" Append all stocks """
+		self.stockListModel.clear()
+		self.stockListModel.append({"symbol": "GOOGL", "amount": 2, "unitPrice": 1200.01})
+		self.stockListModel.append({"symbol": "AMZN", "amount": 4, "unitPrice": 1303.01})
 
 
 	@Slot(str, str, str)

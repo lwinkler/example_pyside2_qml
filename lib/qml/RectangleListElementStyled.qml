@@ -6,15 +6,15 @@
 import QtQuick 2.12
 
 Rectangle {
-    // https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=2962FF
-    property bool errorState : false
+	// https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=2962FF
+	property bool errorState : false
 
-    color: errorState ? "red" : "#2962ff"
-    radius: 5
+	color: errorState ? "red" : "#2962ff"
+	radius: 5
 
-    anchors {
-        left: parent.left
-        right: parent.right
-        margins: 3
-    }
+	anchors {
+		left: parent.left
+		right: parent.right
+		margins: 3
+	}
 }

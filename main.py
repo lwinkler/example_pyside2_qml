@@ -1,10 +1,10 @@
 #! env python
 
-""" Python main, instanciate all objects """
-__author__      = "Laurent Winkler"
-__copyright__   = "Copyright 2019"
-__license__     = "boost"
-
+""" Python main, instanciate all objects
+@author: Laurent Winkler
+@date: Feb 2019
+@license: Boost
+"""
 
 import os
 import sys
@@ -32,7 +32,7 @@ QGuiApplication.setOrganizationName("MyCompany")
 QGuiApplication.setOrganizationDomain("mycompany.com")
 
 # View model
-stockListModel  = JsonListModel(displayTag = "label")
+stockListModel = JsonListModel(displayTag = "symbol")
 
 # Python objects
 tradingClient = TradingClient(stockListModel)

@@ -27,15 +27,17 @@ ApplicationWindow {
 			spacing: 5
 
 			Button {
-				id: mRefreshLocal
 				text: qsTr("&Refresh views")
+				onClicked: {
+					pyTradingClient.refreshStocks();
+				}
 			}
 		}
 
 		TradingView {
 			id: tradingView
-            width: page.width
-			height: page.height
+			width: page.width
+			height: page.height // TODO: Not fully correct
 		}
 	}
 }
