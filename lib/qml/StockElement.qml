@@ -72,7 +72,8 @@ RectangleListElementStyled {
                     right: parent.right
                 }*/
                 ListView {
-                    model: object1 // transactions
+                    model: transactions
+                    height: childrenRect.height
                     anchors {
                         left: parent.left
                         right: parent.right
@@ -81,9 +82,11 @@ RectangleListElementStyled {
                     interactive: true
                     flickableDirection: Flickable.VerticalFlick
 
-                    delegate: Row {
+                    delegate: // Row {
+                        //height: 40
                         RectangleListElementStyled {
-                            // height: transactionContent.height
+                            id: transactionElement
+                            height: childrenRect.height
                             anchors {
                                 left: parent.left
                                 right: parent.right
@@ -93,10 +96,10 @@ RectangleListElementStyled {
                             TextArea {
                                 id: transactionContent
                                 text: display
-                                height: 40
+                                // height: 40
                             }
                         }
-                    }
+                    //}
                 }
             //}
         }

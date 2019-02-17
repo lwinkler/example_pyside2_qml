@@ -39,6 +39,6 @@ ApplicationWindow {
 			width: page.width
 			height: page.height // TODO: Not fully correct
 		}
-	}
+    }
 }
 
