@@ -20,7 +20,7 @@ ApplicationWindow {
 	Material.theme: Material.Dark
 	// Material.accent: Material.Purple
 
-	Column {
+    Column {
 		spacing: 2
 
 		Row {

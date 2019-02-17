@@ -14,12 +14,19 @@ RectangleListElementStyled {
     property var model
 
     id: stockElement
-    height: 200 // stockRow.height // width set by element itself
+    height: 300 // stockRow.height // width set by element itself
 
-    Column {
+    /*Column {
+        anchors {
+            left: parent.left
+            right: parent.right
+        }*/
         Row {
             id: stockRow
-            width: parent.width
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
             spacing: 2
 
             Image {
@@ -41,8 +48,13 @@ RectangleListElementStyled {
             }
         }
         Row {
-            width: stockElement.width
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
             y: stockRow.height
+            // color: "green"
+            height: 300
 
             ListModel {
                 id: object1
@@ -50,26 +62,43 @@ RectangleListElementStyled {
                     display: "AAA"
                 }
                 ListElement {
-                    display: "AAA"
+                    display: "AAA + BBBBB"
                 }
             }
 
-            Column {
+            /*Column {
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                }*/
                 ListView {
-                    model: transactions
-                    width: parent.width
+                    model: object1 // transactions
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                    }
                     spacing: 2
                     interactive: true
                     flickableDirection: Flickable.VerticalFlick
 
-                    delegate: RectangleListElementStyled {
-                        height: 50
-                        width: parent.width
-                        color: "red"
-                        //text: display
+                    delegate: Row {
+                        RectangleListElementStyled {
+                            // height: transactionContent.height
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                            }
+                            color: "red"
+                            opacity: 0.5
+                            TextArea {
+                                id: transactionContent
+                                text: display
+                                height: 40
+                            }
+                        }
                     }
                 }
-            }
+            //}
         }
     }
-}
+//}

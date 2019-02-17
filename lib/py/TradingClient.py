@@ -21,7 +21,6 @@ class StockModel(QObject):
 		self.label = label
 		self.unitPrice = unitPrice
 		self._transactions = JsonListModel('label')
-		self._transactions.append({"label": "trans1"})
 		self._transactions.append({"label": "trans2"})
 		self._transactions.append({"label": "trans3"})
 		self._transactions.append({"label": "trans4"})
