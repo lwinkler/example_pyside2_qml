@@ -24,43 +24,9 @@ Rectangle {
 		interactive: true
 		flickableDirection: Flickable.VerticalFlick
 
-		delegate:
-			Column {
-			spacing: 2
-			width: parent.width
-
-			RectangleListElementStyled {
-				property bool showJson : false
-
-				id: stockElement
-				height: stockRow.height // width set by element itself
-
-				Row {
-					// List of all local patients
-					id: stockRow
-					width: parent.width
-					spacing: 2
-
-					Image {
-						source: "icons/info.png"
-						MouseArea {
-							anchors.fill: parent
-							onClicked: {
-								stockElement.showJson = ! stockElement.showJson;
-							}
-						}
-					}
-
-					Label {
-						y: (parent.height - height) / 2
-						text: stockElement.showJson ?
-									JsUtils.limitString(json, 500)
-									: display
-						verticalAlignment: Text.AlignHCenter
-					}
-				}
-			}
-		}
-	}
+        delegate: StockElement {
+            model: object
+        }
+    }
 }
 

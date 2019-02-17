@@ -20,6 +20,10 @@ from lib.py.TradingClient import TradingClient
 parser = OptionParser(usage="usage: %prog [options]", version="%prog 1.0")
 parser.add_option("-I", "--stock-list", action = "store", dest = "stockList", default = None, help = "List of stocks in JSON format")
 
+if sys.version_info[0] != 3:
+	print("Error: This script requires Python 3")
+	exit(1)
+
 # arguments for QApplication
 parser.add_option("--style", help = "Passed to the constructor of QApplication")
 (options, args) = parser.parse_args()
