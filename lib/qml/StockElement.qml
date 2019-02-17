@@ -11,32 +11,60 @@ import "js/jsUtils.js" as JsUtils
 
 RectangleListElementStyled {
     property bool showJson : false
-    property var model
 
     id: stockElement
     height: stockRow.height // width set by element itself
 
-    Row {
-        id: stockRow
-        width: parent.width
-        spacing: 2
+    Column {
+        Row {
+            id: stockRow
+            width: parent.width
+            spacing: 2
 
-        Image {
-            source: "icons/info.png"
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    stockElement.showJson = ! stockElement.showJson;
+            Image {
+                source: "icons/info.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        stockElement.showJson = ! stockElement.showJson;
+                    }
                 }
+            }
+
+            Label {
+                y: (parent.height - height) / 2
+                text: stockElement.showJson ?
+                            JsUtils.limitString(json, 500)
+                            : display
+                verticalAlignment: Text.AlignHCenter
+            }
+        }
+    }
+    Row {
+        width: parent.width
+
+        ListModel {
+            id: object1
+            ListElement {
+                display: "AAA"
+            }
+            ListElement {
+                display: "AAA"
             }
         }
 
-        Label {
-            y: (parent.height - height) / 2
-            text: stockElement.showJson ?
-                        JsUtils.limitString(json, 500)
-                        : display
-            verticalAlignment: Text.AlignHCenter
+        Column {
+            ListView {
+                model: object1
+                width: parent.width
+                spacing: 2
+                interactive: true
+                flickableDirection: Flickable.VerticalFlick
+
+                delegate: TextArea {
+                    text: display
+                }
+            }
         }
     }
 }

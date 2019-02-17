@@ -31,8 +31,15 @@ class TradingClient(QObject):
 	def refreshStocks(self):
 		""" Append all stocks """
 		self.stockListModel.clear()
-		self.stockListModel.append({"symbol": "GOOGL", "amount": 2, "unitPrice": 1200.01})
-		self.stockListModel.append({"symbol": "AMZN", "amount": 4, "unitPrice": 1303.01})
+		self.stockListModel.append({"symbol": "GOOGL", "amount": 2, "unitPrice": 1200.01, "transactions": [
+			 {"amount": 2}
+		]})
+		self.stockListModel.append({"symbol": "AMZN", "amount": 4, "unitPrice": 1303.01, "transactions": [
+			 {"amount": 2},
+			 {"amount": 2},
+			 {"amount": 2},
+			 {"amount": 2}
+		]})
 
 
 	@Slot(str, str, str)
