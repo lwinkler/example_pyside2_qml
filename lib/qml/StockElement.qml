@@ -11,16 +11,18 @@ import "js/jsUtils.js" as JsUtils
 
 RectangleListElementStyled {
     property bool showJson : false
+    property bool showTransactions : true
     property var model
 
     id: stockElement
-    height: childrenRect.height // stockRow.height // width set by element itself
+    height: childrenRect.height
 
     Column {
         anchors {
             left: parent.left
             right: parent.right
         }
+        spacing: 3
         Row {
             id: stockRow
             anchors {
@@ -39,6 +41,16 @@ RectangleListElementStyled {
                 }
             }
 
+            Image {
+                source: "icons/info.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        stockElement.showTransactions = ! stockElement.showTransactions;
+                    }
+                }
+            }
+
             Label {
                 y: (parent.height - height) / 2
                 text: stockElement.showJson ?
@@ -47,61 +59,42 @@ RectangleListElementStyled {
                 verticalAlignment: Text.AlignHCenter
             }
         }
-        Row {
+
+        ListView {
+            model: transactions
+            height: childrenRect.height
+            visible: stockElement.showTransactions
             anchors {
                 left: parent.left
                 right: parent.right
             }
-            // y: stockRow.height
-            // color: "green"
-            height: childrenRect.height
+            spacing: 2
+            interactive: true
+            flickableDirection: Flickable.VerticalFlick
 
-            ListModel {
-                id: object1
-                ListElement {
-                    display: "AAA"
-                }
-                ListElement {
-                    display: "AAA + BBBBB"
-                }
-            }
-
-            /*Column {
+            delegate: RectangleListElementStyled {
+                id: transactionElement
+                height: childrenRect.height
                 anchors {
                     left: parent.left
                     right: parent.right
-                }*/
-                ListView {
-                    model: transactions
-                    height: childrenRect.height
+                    margins: 8
+                }
+                color: "red"
+                Row {
                     anchors {
                         left: parent.left
                         right: parent.right
+                        margins: 5
                     }
-                    spacing: 2
-                    interactive: true
-                    flickableDirection: Flickable.VerticalFlick
-
-                    delegate: // Row {
-                        //height: 40
-                        RectangleListElementStyled {
-                            id: transactionElement
-                            height: childrenRect.height
-                            anchors {
-                                left: parent.left
-                                right: parent.right
-                            }
-                            color: "red"
-                            opacity: 0.5
-                            TextArea {
-                                id: transactionContent
-                                text: display
-                                // height: 40
-                            }
-                        }
-                    //}
+                    Label {
+                        id: transactionContent
+                        text: display
+                        height: 30
+                        verticalAlignment: Text.AlignHCenter
+                    }
                 }
             }
         }
     }
-//}
+}
