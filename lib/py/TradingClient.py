@@ -37,7 +37,7 @@ class StockModel(QObject):
 
 	def get_transactions(self, result=object):
 		return self._transactions
-	transactions = Property(object, get_transactions, notify = transactionsChanged)
+	transactions = Property(QObject, get_transactions, notify = transactionsChanged)
 
 
 class TradingClient(QObject):

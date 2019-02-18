@@ -26,6 +26,7 @@ class StockListModel(QAbstractListModel):
 		roles[self.ObjectRole] = b"object"
 		roles[self.JsonRole] = b"json"
 		roles[self.TransactionsRole] = b"transactions"
+		roles[self.TransactionsRole + 1] = b"label"
 		return roles
 
 	def rowCount(self, index):
@@ -41,20 +42,19 @@ class StockListModel(QAbstractListModel):
 			return None
 
 		obj = self._objects[index.row()]
-		if role == Qt.DisplayRole:
-			return obj.label
-		if role == Qt.EditRole:
-			return obj.label
 		if role == self.ObjectRole:
 			return obj
 		if role == self.JsonRole:
 			# note: output of this will only be similar to JSON
 			return str(obj.__dict__)
-		if role == self.TransactionsRole:
-			# note: output of this will only be similar to JSON
-			return obj._transactions
-		else:
-			return obj[self.displayTag]
+
+		rnames = self.roleNames()
+		if role not in rnames:
+			raise Exception('Unknown role')
+		roleStr = rnames[role].decode('ascii')
+		if getattr(obj, roleStr, None):
+			return getattr(obj, roleStr, None)
+		return obj.label
 
 	def get(self, index):
 		""" Return the nth element """

@@ -55,7 +55,7 @@ RectangleListElementStyled {
                 y: (parent.height - height) / 2
                 text: stockElement.showJson ?
                             JsUtils.limitString(json, 500)
-                            : display + ", transactions: " + transactions.length + ", total amount: " + object.amount()
+                            : label + ", transactions: " + object.transactions.length + ", total amount: " + object.amount()
                 verticalAlignment: Text.AlignHCenter
             }
         }
@@ -67,7 +67,7 @@ RectangleListElementStyled {
             }
             spacing: 8
             ListView {
-                model: transactions
+                model: object.transactions
                 height: childrenRect.height
                 visible: stockElement.showTransactions
                 anchors {
