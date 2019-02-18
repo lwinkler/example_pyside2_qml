@@ -15,14 +15,14 @@ RectangleListElementStyled {
     property var model
 
     id: stockElement
-    height: childrenRect.height
+    height: childrenRect.height + 16
 
     Column {
         anchors {
             left: parent.left
             right: parent.right
         }
-        spacing: 3
+        spacing: 8
         Row {
             id: stockRow
             anchors {
@@ -60,38 +60,47 @@ RectangleListElementStyled {
             }
         }
 
-        ListView {
-            model: transactions
-            height: childrenRect.height
-            visible: stockElement.showTransactions
+        Column {
             anchors {
                 left: parent.left
                 right: parent.right
             }
-            spacing: 2
-            interactive: true
-            flickableDirection: Flickable.VerticalFlick
-
-            delegate: RectangleListElementStyled {
-                id: transactionElement
+            spacing: 8
+            ListView {
+                model: transactions
                 height: childrenRect.height
+                visible: stockElement.showTransactions
                 anchors {
                     left: parent.left
                     right: parent.right
-                    margins: 8
                 }
-                color: "red"
-                Row {
+                spacing: 2
+                interactive: true
+                flickableDirection: Flickable.VerticalFlick
+
+                delegate: RectangleListElementStyled {
+                    id: transactionElement
+                    height: childrenRect.height
                     anchors {
                         left: parent.left
                         right: parent.right
-                        margins: 5
+                        margins: 8
                     }
-                    Label {
-                        id: transactionContent
-                        text: display
-                        height: 30
-                        verticalAlignment: Text.AlignHCenter
+                    defaultColor: "darkGray"
+                    Row {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            margins: 5
+                        }
+                        height: childrenRect.height
+                        Label {
+                            id: transactionContent
+                            text: display
+                            height: 30
+                            // TODO
+                            verticalAlignment: Text.AlignHCenter
+                        }
                     }
                 }
             }

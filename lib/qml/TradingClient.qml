@@ -24,7 +24,9 @@ ApplicationWindow {
 		spacing: 2
 
 		Row {
+
 			spacing: 5
+
 
 			Button {
 				text: qsTr("&Refresh views")
@@ -37,7 +39,8 @@ ApplicationWindow {
 		TradingView {
 			id: tradingView
 			width: page.width
-			height: page.height // TODO: Not fully correct
+            // anchors.bottom: page.height
+            height: page.height // TODO: Not fully correct
 		}
     }
 }

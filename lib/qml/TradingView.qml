@@ -12,17 +12,17 @@ import QtQuick.Layouts 1.1
 import "js/jsUtils.js" as JsUtils
 
 Rectangle {
-	width: 640  // to override
-	height: 480 // to override
+    // width: 640  // to override
+    // height: 480 // to override
     color: "white"
 
-	ListView {
-		id: localPatientsView
-		model: pyStockListModel
-		anchors.fill: parent
-		spacing: 2
-		interactive: true
-		flickableDirection: Flickable.VerticalFlick
+    ListView {
+        id: localPatientsView
+        model: pyStockListModel
+        anchors.fill: parent
+        spacing: 8
+        interactive: true
+        flickableDirection: Flickable.VerticalFlick
 
         delegate: StockElement {
             model: object
