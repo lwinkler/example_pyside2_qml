@@ -17,27 +17,33 @@ class StockModel(QObject):
 
 	def __init__(self, label, unitPrice, transactions):
 		QObject.__init__(self)
-		self.label = label
+		self._label = label
 		self.unitPrice = unitPrice
 		self._transactions = JsonListModel('type')
 		for transaction in transactions:
 			self._transactions.append(transaction)
-		self.transactionsChanged.emit()
+		self.valueChanged.emit()
 	
-	@Slot(result=float)
-	def amount(self):
+
+	@Signal
+	def valueChanged(self):
+		pass
+
+	def get_label(self):
+		return self._label
+	label = Property(str, get_label, notify = valueChanged)
+
+	def get_transactions(self):
+		return self._transactions
+	# trick: to use a custom object as a property, use QObject !
+	transactions = Property(QObject, get_transactions, notify = valueChanged)
+
+	def get_amount(self):
 		sum = 0
 		for transaction in self._transactions.getList():
 			sum += transaction['amount']
 		return sum
-
-	@Signal
-	def transactionsChanged(self):
-		pass
-
-	def get_transactions(self, result=object):
-		return self._transactions
-	transactions = Property(QObject, get_transactions, notify = transactionsChanged)
+	amount = Property(int, get_amount, notify = valueChanged)
 
 
 class TradingClient(QObject):
@@ -56,8 +62,8 @@ class TradingClient(QObject):
 			{"date": "2019-01-08", "type": "sell", "amount": -2, "price": 2 * 1020}
 		]))
 		self.stockListModel.append(StockModel("AMZN", 1000.3, [
-			{"date": "2018-02-02", "type": "buy", "amount": 40, "price": 40 * 760},
-			{"date": "2019-01-08", "type": "sell", "amount": 22, "price": 22 * 783}
+			{"date": "2018-02-02", "type": "buy", "amount": 40, "price": -40 * 760},
+			{"date": "2019-01-08", "type": "sell", "amount": -22, "price": 22 * 783}
 		]))
 
 

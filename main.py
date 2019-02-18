@@ -13,7 +13,7 @@ from optparse import OptionParser
 from PySide2.QtGui import QGuiApplication, QIcon
 from PySide2.QtQml import QQmlApplicationEngine
 
-from lib.py.StockListModel import StockListModel
+from lib.py.JsonListModel import JsonListModel
 from lib.py.TradingClient import TradingClient
 
 # Options
@@ -36,7 +36,7 @@ QGuiApplication.setOrganizationName("MyCompany")
 QGuiApplication.setOrganizationDomain("mycompany.com")
 
 # View model
-stockListModel = StockListModel()
+stockListModel = JsonListModel()
 
 # Python objects
 tradingClient = TradingClient(stockListModel)

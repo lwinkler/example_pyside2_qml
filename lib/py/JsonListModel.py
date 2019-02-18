@@ -49,7 +49,11 @@ class JsonListModel(QAbstractListModel):
 		if role == self.ObjectRole:
 			return obj
 		if role == self.JsonRole:
-			return json.dumps(obj, indent=1, sort_keys=True)
+			try:
+				return json.dumps(obj, indent=1, sort_keys=True)
+			except:
+			# note: the output of this will not be real JSON
+				return str(obj.__dict__)
 		else:
 			return obj[self.displayTag]
 
