@@ -14,13 +14,13 @@ RectangleListElementStyled {
     property var model
 
     id: stockElement
-    height: 300 // stockRow.height // width set by element itself
+    height: childrenRect.height // stockRow.height // width set by element itself
 
-    /*Column {
+    Column {
         anchors {
             left: parent.left
             right: parent.right
-        }*/
+        }
         Row {
             id: stockRow
             anchors {
@@ -52,9 +52,9 @@ RectangleListElementStyled {
                 left: parent.left
                 right: parent.right
             }
-            y: stockRow.height
+            // y: stockRow.height
             // color: "green"
-            height: 300
+            height: childrenRect.height
 
             ListModel {
                 id: object1
@@ -101,7 +101,7 @@ RectangleListElementStyled {
                         }
                     //}
                 }
-            //}
+            }
         }
     }
 //}
