@@ -11,10 +11,10 @@ import QtQuick.Layouts 1.1
 
 import "js/jsUtils.js" as JsUtils
 
-Rectangle {
-    // width: 640  // to override
-    // height: 480 // to override
-    color: "white"
+Item {
+    width: 640  // to override
+    height: 480 // to override
+    // color: "white"
 
     ListView {
         id: localPatientsView

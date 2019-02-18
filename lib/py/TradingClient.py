@@ -6,7 +6,6 @@
 @license: Boost
 """
 
-import datetime
 import json
 
 import PySide2.QtQml
@@ -16,21 +15,26 @@ from .JsonListModel import JsonListModel
 
 class StockModel(QObject):
 
-	def __init__(self, label, unitPrice):
+	def __init__(self, label, unitPrice, transactions):
 		QObject.__init__(self)
 		self.label = label
 		self.unitPrice = unitPrice
-		self._transactions = JsonListModel('label')
-		self._transactions.append({"label": "trans2"})
-		self._transactions.append({"label": "trans3"})
-		self._transactions.append({"label": "trans4"})
-		self._transactions.append({"label": "trans5"})
+		self._transactions = JsonListModel('type')
+		for transaction in transactions:
+			self._transactions.append(transaction)
 		self.transactionsChanged.emit()
 	
+	@Slot(result=float)
+	def amount(self):
+		sum = 0
+		for transaction in self._transactions.getList():
+			sum += transaction['amount']
+		return sum
+
 	@Signal
 	def transactionsChanged(self):
 		pass
-	
+
 	def get_transactions(self, result=object):
 		return self._transactions
 	transactions = Property(object, get_transactions, notify = transactionsChanged)
@@ -42,31 +46,19 @@ class TradingClient(QObject):
 		QObject.__init__(self)
 		self.stockListModel = stockListModel
 
-	@Slot(str, str, result=str)
-	def proposeAnonymizedValue(self, dicomTag, dicomDataStr):
-		""" Propose an anonymized value for the DICOM tag """
-		# TODO adapt
-
-		return "NONE"
-
 	@Slot()
 	def refreshStocks(self):
 		""" Append all stocks """
 		self.stockListModel.clear()
 
-		self.stockListModel.append(StockModel("GOOGL", 1000.3))
-		self.stockListModel.append(StockModel("AMZN", 1000.3))
-
-		return
-		self.stockListModel.append({"symbol": "GOOGL", "amount": 2, "unitPrice": 1200.01, "transactions": [
-			 {"amount": 2}
-		]})
-		self.stockListModel.append({"symbol": "AMZN", "amount": 4, "unitPrice": 1303.01, "transactions": [
-			 {"amount": 2},
-			 {"amount": 2},
-			 {"amount": 2},
-			 {"amount": 2}
-		]})
+		self.stockListModel.append(StockModel("GOOGL", 1000.3, [
+			{"date": "2018-02-02", "type": "buy", "amount": 4, "price": -4 * 980},
+			{"date": "2019-01-08", "type": "sell", "amount": -2, "price": 2 * 1020}
+		]))
+		self.stockListModel.append(StockModel("AMZN", 1000.3, [
+			{"date": "2018-02-02", "type": "buy", "amount": 40, "price": 40 * 760},
+			{"date": "2019-01-08", "type": "sell", "amount": 22, "price": 22 * 783}
+		]))
 
 
 	@Slot(str, str, str)
