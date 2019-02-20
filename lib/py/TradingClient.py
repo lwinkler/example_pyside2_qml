@@ -61,7 +61,7 @@ class TradingClient(QObject):
 			{"date": "2018-02-02", "type": "buy", "amount": 4, "price": -4 * 980},
 			{"date": "2019-01-08", "type": "sell", "amount": -2, "price": 2 * 1020}
 		]))
-		self.stockListModel.append(StockModel("AMZN", 1000.3, [
+		self.stockListModel.append(StockModel("AMZN", 1208.2, [
 			{"date": "2018-02-02", "type": "buy", "amount": 40, "price": -40 * 760},
 			{"date": "2019-01-08", "type": "sell", "amount": -22, "price": 22 * 783}
 		]))

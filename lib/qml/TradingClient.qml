@@ -20,6 +20,18 @@ ApplicationWindow {
 	Material.theme: Material.Dark
 	// Material.accent: Material.Purple
 
+    ListModel {
+        id: availableStocks
+        ListElement {
+            symbol: "GOOGL"
+            price: 1000.3
+        }
+        ListElement {
+            symbol: "AMZN"
+            price: 1208.2
+        }
+    }
+
     Column {
 		spacing: 2
 
@@ -34,6 +46,29 @@ ApplicationWindow {
 					pyTradingClient.refreshStocks();
 				}
 			}
+            Button {
+                text: qsTr("Add &stock")
+                onClicked: {
+                    var component = Qt.createComponent("NewStock.qml")
+                    var window    = component.createObject(page, {stocks: availableStocks})
+                    window.show()
+                }
+            }
+
+            ComboBox {
+                id: transactionStock
+                model: availableStocks
+                textRole: "symbol"
+                width: 200
+                // onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+            }
+
+            Button {
+                text: qsTr("Add &transaction")
+                onClicked: {
+
+                }
+            }
 		}
 
 		TradingView {
