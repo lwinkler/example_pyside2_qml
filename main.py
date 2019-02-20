@@ -49,7 +49,7 @@ if __name__ == '__main__':
 		sys.argv += ['--style', 'material']
 	sys.argv += ['--qwindowtitle', 'Example of trading client in QML+Python']
 	app = QGuiApplication(sys.argv)
-	# TODO app.setWindowIcon(QIcon('tradingClient.ico'))
+	app.setWindowIcon(QIcon('lib/qml/icons/money.png')) # TODO
 	engine = QQmlApplicationEngine()
 
 	# Set models used by QML files
