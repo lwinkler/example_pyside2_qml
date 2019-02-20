@@ -10,101 +10,100 @@ import QtQuick.Controls 2.12
 import "js/jsUtils.js" as JsUtils
 
 RectangleListElementStyled {
-    property bool showJson : false
-    property bool showTransactions : true
-    property var model
+	property bool showJson : false
+	property bool showTransactions : true
+	property var model
 
-    id: stockElement
-    height: childrenRect.height + 16
+	id: stockElement
+	height: childrenRect.height + 16
 
-    Column {
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
-        spacing: 8
-        Row {
-            id: stockRow
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            spacing: 2
+	Column {
+		anchors {
+			left: parent.left
+			right: parent.right
+		}
+		spacing: 8
+		Row {
+			id: stockRow
+			anchors {
+				left: parent.left
+				right: parent.right
+			}
+			spacing: 2
 
-            Image {
-                source: "icons/info.png"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        stockElement.showJson = ! stockElement.showJson;
-                    }
-                }
-            }
+			Image {
+				source: "icons/info.png"
+				MouseArea {
+					anchors.fill: parent
+					onClicked: {
+						stockElement.showJson = ! stockElement.showJson;
+					}
+				}
+			}
 
-            Image {
-                source: "icons/info.png"
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        stockElement.showTransactions = ! stockElement.showTransactions;
-                    }
-                }
-            }
+			Image {
+				source: "icons/info.png"
+				MouseArea {
+					anchors.fill: parent
+					onClicked: {
+						stockElement.showTransactions = ! stockElement.showTransactions;
+					}
+				}
+			}
 
-            Label {
-                y: (parent.height - height) / 2
-                text: stockElement.showJson ?
-                           JsUtils.limitString(json, 500)
-                           : object.label + ", transactions: " + object.transactions.length + ", total amount: " + object.amount
-                // TODO: Test is properties are updated
-                verticalAlignment: Text.AlignHCenter
-            }
-        }
+			Label {
+				y: (parent.height - height) / 2
+				text: stockElement.showJson ?
+						   JsUtils.limitString(json, 500)
+						   : object.label + ", transactions: " + object.transactions.length + ", total amount: " + object.amount
+				verticalAlignment: Text.AlignHCenter
+			}
+		}
 
-        Column {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            spacing: 8
-            ListView {
-                model: object.transactions
-                height: childrenRect.height
-                visible: stockElement.showTransactions
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                spacing: 2
-                interactive: true
-                flickableDirection: Flickable.VerticalFlick
+		Column {
+			anchors {
+				left: parent.left
+				right: parent.right
+			}
+			spacing: 8
+			ListView {
+				model: object.transactions
+				height: childrenRect.height
+				visible: stockElement.showTransactions
+				anchors {
+					left: parent.left
+					right: parent.right
+				}
+				spacing: 2
+				interactive: true
+				flickableDirection: Flickable.VerticalFlick
 
-                delegate: RectangleListElementStyled {
-                    id: transactionElement
-                    height: childrenRect.height
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        margins: 8
-                    }
-                    defaultColor: "darkGray"
-                    Row {
-                        anchors {
-                            left: parent.left
-                            right: parent.right
-                            margins: 5
-                        }
-                        height: childrenRect.height
-                        Label {
-                            id: transactionContent
-                            text: object.date + ": " + object.type + " " + Math.abs(object.amount) + " actions for " + Math.abs(object.price) + " USD"
-                            height: 30
-                            // TODO
-                            verticalAlignment: Text.AlignHCenter
-                        }
-                    }
-                }
-            }
-        }
-    }
+				delegate: RectangleListElementStyled {
+					id: transactionElement
+					height: childrenRect.height
+					anchors {
+						left: parent.left
+						right: parent.right
+						margins: 8
+					}
+					defaultColor: "darkGray"
+					Row {
+						anchors {
+							left: parent.left
+							right: parent.right
+							margins: 5
+						}
+						height: childrenRect.height
+						Label {
+							id: transactionContent
+							text: object.date + ": " + object.type + " " + Math.abs(object.amount) + " actions for " + Math.abs(object.price) + " USD"
+							height: 30
+							// TODO
+							verticalAlignment: Text.AlignHCenter
+						}
+					}
+				}
+			}
+		}
+	}
 }

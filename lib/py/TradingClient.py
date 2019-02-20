@@ -15,9 +15,9 @@ from .JsonListModel import JsonListModel
 
 class StockModel(QObject):
 
-	def __init__(self, label, unitPrice, transactions):
+	def __init__(self, symbol, unitPrice, transactions):
 		QObject.__init__(self)
-		self._label = label
+		self._symbol = symbol
 		self.unitPrice = unitPrice
 		self._transactions = JsonListModel('type')
 		for transaction in transactions:
@@ -29,21 +29,21 @@ class StockModel(QObject):
 	def valueChanged(self):
 		pass
 
-	def get_label(self):
-		return self._label
-	label = Property(str, get_label, notify = valueChanged)
+	def getLabel(self):
+		return self._symbol
+	symbol = Property(str, getLabel, notify = valueChanged)
 
-	def get_transactions(self):
+	def getTransactions(self):
 		return self._transactions
 	# trick: to use a custom object as a property, use QObject !
-	transactions = Property(QObject, get_transactions, notify = valueChanged)
+	transactions = Property(QObject, getTransactions, notify = valueChanged)
 
-	def get_amount(self):
+	def getAmount(self):
 		sum = 0
 		for transaction in self._transactions.getList():
 			sum += transaction['amount']
 		return sum
-	amount = Property(int, get_amount, notify = valueChanged)
+	amount = Property(int, getAmount, notify = valueChanged)
 
 
 class TradingClient(QObject):
@@ -53,7 +53,7 @@ class TradingClient(QObject):
 		self.stockListModel = stockListModel
 
 	@Slot()
-	def refreshStocks(self):
+	def resetStocks(self):
 		""" Append all stocks """
 		self.stockListModel.clear()
 
@@ -71,4 +71,14 @@ class TradingClient(QObject):
 	def uploadSubjectByIndex(self, projectIndex, patientPath, anonymizationDataJson):
 		""" Upload a subject to Trading from a directory """
 		pass
-
+	
+	@Slot(QObject, str, str, str, int)
+	def addTransaction(self, stockList, symbol, dateStr, typeStr, amount):
+		for stock in stockList.getList():
+			if stock.symbol == symbol:
+				stock._transactions.append({"date": dateStr, "type": typeStr, "amount": amount, "price": 9999}) # TODO
+				return
+		stockList.append(StockModel(symbol, 9999, [
+			{"date": dateStr, "type": typeStr, "amount": amount, "price": amount * 9999}
+                ])) # TODO
+ 

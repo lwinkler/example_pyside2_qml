@@ -39,7 +39,8 @@ QGuiApplication.setOrganizationDomain("mycompany.com")
 stockListModel = JsonListModel()
 
 # Python objects
-tradingClient = TradingClient(stockListModel)
+tradingClient = TradingClient(stockListModel) # TODO: create an util
+tradingClient.resetStocks()
 
 # Main
 if __name__ == '__main__':

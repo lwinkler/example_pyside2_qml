@@ -7,7 +7,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
-// import "js/jsUtils.js" as JsUtils
+import "js/jsUtils.js" as JsUtils
 
 
 ApplicationWindow {
@@ -20,63 +20,77 @@ ApplicationWindow {
 	Material.theme: Material.Dark
 	// Material.accent: Material.Purple
 
-    ListModel {
-        id: availableStocks
-        ListElement {
-            symbol: "GOOGL"
-            price: 1000.3
-        }
-        ListElement {
-            symbol: "AMZN"
-            price: 1208.2
-        }
-    }
+	ListModel {
+		id: availableStocks
+		ListElement {
+			symbol: "GOOGL"
+			price: 1000.3
+		}
+		ListElement {
+			symbol: "AMZN"
+			price: 1208.2
+		}
+	}
 
-    Column {
+	Column {
 		spacing: 2
 
 		Row {
-
 			spacing: 5
-
-
 			Button {
-				text: qsTr("&Refresh views")
+                text: qsTr("&Reset views")
 				onClicked: {
-					pyTradingClient.refreshStocks();
+					pyTradingClient.resetStocks();
 				}
 			}
-            Button {
-                text: qsTr("Add &stock")
-                onClicked: {
-                    var component = Qt.createComponent("NewStock.qml")
-                    var window    = component.createObject(page, {stocks: availableStocks})
-                    window.show()
-                }
-            }
+			Button {
+				text: qsTr("Add &stock")
+				onClicked: {
+					var component = Qt.createComponent("NewStock.qml")
+					var window	= component.createObject(page, {stocks: availableStocks})
+					window.show()
+				}
+			}
+		}
+		Row {
+			spacing: 5
+			ComboBox {
+				id: transactionSymbol
+				model: availableStocks
+				textRole: "symbol"
+				width: 200
+				// onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
+			}
 
-            ComboBox {
-                id: transactionStock
-                model: availableStocks
-                textRole: "symbol"
-                width: 200
-                // onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
-            }
+			TextArea {
+				id: transactionDate
+				text: JsUtils.dateNow()
+			}
 
-            Button {
-                text: qsTr("Add &transaction")
-                onClicked: {
+			ComboBox {
+				id: transactionType
+				model: ['buy', 'sell']
+			}
 
-                }
-            }
+			TextArea {
+				id: transactionAmount
+				text: "0"
+			}
+
+			Button {
+				text: qsTr("Add &transaction")
+				onClicked: {
+					pyTradingClient.addTransaction(pyStockListModel, transactionSymbol.currentText, transactionDate.text, transactionType.currentText, parseInt(transactionAmount.text));
+				}
+			}
 		}
 
 		TradingView {
 			id: tradingView
 			width: page.width
-            // anchors.bottom: page.height
-            height: page.height // TODO: Not fully correct
+			// anchors.bottom: page.height
+			height: page.height // TODO: Not fully correct
 		}
-    }
+	}
 }
 

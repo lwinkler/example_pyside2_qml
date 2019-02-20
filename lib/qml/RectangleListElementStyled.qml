@@ -6,16 +6,16 @@
 import QtQuick 2.12
 
 Rectangle {
-    // https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=2962FF
-    property bool errorState : false
-    property string defaultColor : "#2962ff"
+	// https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=2962FF
+	property bool errorState : false
+	property string defaultColor : "#2962ff"
 
-    color: errorState ? "red" : defaultColor
-    radius: 5
+	color: errorState ? "red" : defaultColor
+	radius: 5
 
-    anchors {
-        left: parent.left
-        right: parent.right
-        margins: 3
-    }
+	anchors {
+		left: parent.left
+		right: parent.right
+		margins: 3
+	}
 }
