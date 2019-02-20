@@ -39,7 +39,7 @@ QGuiApplication.setOrganizationDomain("mycompany.com")
 stockListModel = JsonListModel()
 
 # Python objects
-tradingClient = TradingClient(stockListModel) # TODO: create an util
+tradingClient = TradingClient(stockListModel) # TODO: create an util ?
 tradingClient.resetStocks()
 
 # Main
@@ -50,7 +50,8 @@ if __name__ == '__main__':
 		sys.argv += ['--style', 'material']
 	sys.argv += ['--qwindowtitle', 'Example of trading client in QML+Python']
 	app = QGuiApplication(sys.argv)
-	app.setWindowIcon(QIcon('lib/qml/icons/money.png')) # TODO
+        # <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"              title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+	app.setWindowIcon(QIcon('lib/qml/icons/money.png'))
 	engine = QQmlApplicationEngine()
 
 	# Set models used by QML files
