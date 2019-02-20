@@ -55,7 +55,7 @@ RectangleListElementStyled {
 				y: (parent.height - height) / 2
 				text: stockElement.showJson ?
 						   JsUtils.limitString(json, 500)
-						   : object.label + ", transactions: " + object.transactions.length + ", total amount: " + object.amount
+                           : object.symbol + ", transactions: " + object.transactions.length + ", total amount: " + object.amount
 				verticalAlignment: Text.AlignHCenter
 			}
 		}

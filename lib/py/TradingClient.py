@@ -74,11 +74,18 @@ class TradingClient(QObject):
 	
 	@Slot(QObject, str, str, str, int)
 	def addTransaction(self, stockList, symbol, dateStr, typeStr, amount):
+		price = 9999 # TODO
+		if typeStr == 'buy':
+			price = -price
+		elif typeStr == 'sell':
+			amount = -amount
+		else:
+			raise Exception('Unknown transaction type ' + typeStr)
 		for stock in stockList.getList():
 			if stock.symbol == symbol:
-				stock._transactions.append({"date": dateStr, "type": typeStr, "amount": amount, "price": 9999}) # TODO
+				stock._transactions.append({"date": dateStr, "type": typeStr, "amount": amount, "price": price})
 				return
 		stockList.append(StockModel(symbol, 9999, [
 			{"date": dateStr, "type": typeStr, "amount": amount, "price": amount * 9999}
-                ])) # TODO
+		])) # TODO
  
