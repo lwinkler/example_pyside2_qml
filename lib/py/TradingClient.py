@@ -73,8 +73,7 @@ class TradingClient(QObject):
 		pass
 	
 	@Slot(QObject, str, str, str, int)
-	def addTransaction(self, stockList, symbol, dateStr, typeStr, amount):
-		price = 9999 # TODO
+	def addTransaction(self, stockList, symbol, price, dateStr, typeStr, amount):
 		if typeStr == 'buy':
 			price = -price
 		elif typeStr == 'sell':
@@ -85,7 +84,7 @@ class TradingClient(QObject):
 			if stock.symbol == symbol:
 				stock._transactions.append({"date": dateStr, "type": typeStr, "amount": amount, "price": price})
 				return
-		stockList.append(StockModel(symbol, 9999, [
-			{"date": dateStr, "type": typeStr, "amount": amount, "price": amount * 9999}
-		])) # TODO
+		stockList.append(StockModel(symbol, price, [
+			{"date": dateStr, "type": typeStr, "amount": amount, "price": price}
+		]))
  

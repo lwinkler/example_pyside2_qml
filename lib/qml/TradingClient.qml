@@ -62,6 +62,11 @@ ApplicationWindow {
 				// onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
 			}
 
+            TextArea {
+                id: transactionPrice
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
+            }
+
 			TextArea {
 				id: transactionDate
 				text: JsUtils.dateNow()
@@ -74,13 +79,13 @@ ApplicationWindow {
 
 			TextArea {
 				id: transactionAmount
-				text: "0"
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
 			}
 
 			Button {
 				text: qsTr("Add &transaction")
 				onClicked: {
-					pyTradingClient.addTransaction(pyStockListModel, transactionSymbol.currentText, transactionDate.text, transactionType.currentText, parseInt(transactionAmount.text));
+                    pyTradingClient.addTransaction(pyStockListModel, transactionSymbol.currentText, transactionPrice.text, transactionDate.text, transactionType.currentText, parseInt(transactionAmount.text));
 				}
 			}
 		}

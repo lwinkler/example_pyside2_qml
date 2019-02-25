@@ -20,6 +20,7 @@ ApplicationWindow {
 
 			TextField {
 				id: symbol
+                inputMethodHints: Qt.ImhUppercaseOnly
 			}
 
 			Label {
@@ -28,7 +29,7 @@ ApplicationWindow {
 
 			TextField {
 				id: price
-				// TODO numeric input
+                inputMethodHints: Qt.ImhFormattedNumbersOnly
 			}
 		}
 		Row {
