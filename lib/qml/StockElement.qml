@@ -93,13 +93,12 @@ RectangleListElementStyled {
 							right: parent.right
 							margins: 5
 						}
-						height: childrenRect.height
+                        height: 30
 						Label {
 							id: transactionContent
+                            y: (parent.height - height) / 2
 							text: object.date + ": " + object.type + " " + Math.abs(object.amount) + " actions for " + Math.abs(object.price) + " USD"
-							height: 30
-							// TODO
-							verticalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignHCenter
 						}
 					}
 				}

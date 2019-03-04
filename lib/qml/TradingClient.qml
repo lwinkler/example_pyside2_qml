@@ -38,7 +38,7 @@ ApplicationWindow {
 		Row {
 			spacing: 5
 			Button {
-                text: qsTr("&Reset views")
+                text: qsTr("&Reset stocks")
 				onClicked: {
 					pyTradingClient.resetStocks();
 				}
